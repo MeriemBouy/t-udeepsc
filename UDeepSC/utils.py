@@ -11,7 +11,7 @@ import numpy as np
 import torch.distributed as dist
 
 from pathlib import Path
-from torch._six import inf
+from math import inf
 import torch.nn.functional as F
 from timm.utils import get_state_dict
 from timm.models import create_model
