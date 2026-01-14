@@ -121,6 +121,13 @@ def build_dataset_test(is_train, args):
     return dataset
 
 def build_dataset_train(is_train, ta_sel, args):
+
+    # my modification:  Force SST data for textc task
+    if 'textc' in ta_sel == 'textc':
+        from data import SST_CR
+        dataset = SST_CR(root=False, train=is_train, binary=True, if_class=True)
+        return {'textc': dataset}
+
     # if args.ta_perform.startswith('img'):
     
     # print("Transform = ")
@@ -184,6 +191,7 @@ def build_img_transform(is_train, args):
             )
             t.append(transforms.CenterCrop(args.input_size))
 
+    t.append(transforms.Resize((224, 224)))
     t.append(transforms.ToTensor())
     t.append(transforms.Normalize(mean, std))
     return transforms.Compose(t)
