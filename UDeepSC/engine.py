@@ -12,7 +12,6 @@ from typing import Iterable, Optional
 from vqa_utils import VQA_Tool, VQA_Eval
 from timm.utils import accuracy, AverageMeter
 from nltk.translate.bleu_score import sentence_bleu
-####################################
 
 def get_loss_scale_for_deepspeed(model):
     optimizer = model.optimizer
@@ -221,7 +220,7 @@ def train_epoch_uni(model: torch.nn.Module, criterion: dict,
     num_tasks = len(data_dict)
     data_tuple = [data_loader for data_loader in data_dict.values()]
     # data_tuple[2],data_tuple[3],data_tuple[4]
-    for data_batch in zip(data_tuple[0], data_tuple[1]):    
+    for data_batch in zip(*data_tuple):    
         step = data_iter_step // update_freq
         it = start_steps + step  
         if lr_schedule_values is not None or wd_schedule_values is not None and data_iter_step % update_freq == 0:
