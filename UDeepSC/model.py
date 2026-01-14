@@ -10,8 +10,8 @@ from model_util import *
 from functools import partial
 from trans_deocer import Decoder
 from utils import batch_index_select
-from timm.models.registry import register_model
-from timm.models.layers import trunc_normal_ as __call_trunc_normal_
+# from timm.models.registry import register_model
+# from timm.models.layers import trunc_normal_ as __call_trunc_normal_
 from typing import List, Callable, Union, Any, TypeVar, Tuple
 from transformers import BertForSequenceClassification, BertModel
 from model_util import Block, _cfg, PatchEmbed, get_sinusoid_encoding_table
@@ -42,7 +42,7 @@ class UDeepSC_M1(nn.Module):
                                 drop_path_rate=drop_path_rate,norm_layer=norm_layer, init_values=init_values,
                                 use_learnable_pos_emb=use_learnable_pos_emb)
         
-        bert_ckpt = f"/Data1/zhangguangyi/SemanRes2/JSACCode/UDeepSC_Base/pretrained_models/bert-{mode}"
+        bert_ckpt = f"prajjwal1/bert-small"
         self.text_encoder = BertModel.from_pretrained(bert_ckpt)
         
         self.spe_encoder = SPTEncoder(in_chans=encoder_in_chans,num_classes=encoder_num_classes, embed_dim=speech_embed_dim,
@@ -117,7 +117,7 @@ class UDeepSC_M1(nn.Module):
         else:
             noise_std = torch.FloatTensor([1]) * 10**(-test_snr/20) 
         if text is not None:
-            x_text = self.text_encoder(ta_perform, text, return_dict=False)[0]
+            x_text = self.text_encoder(text, return_dict=False)[0]
             x_text = self.text_encoder_to_channel(x_text)
 
             if ta_perform.startswith('textc'):
@@ -201,7 +201,7 @@ class UDeepSC_M2(nn.Module):
                                 drop_path_rate=drop_path_rate,norm_layer=norm_layer, init_values=init_values,
                                 use_learnable_pos_emb=use_learnable_pos_emb)
         
-        bert_ckpt = f"/Data1/zhangguangyi/SemanRes2/JSACCode/UDeepSC_Base/pretrained_models/bert-{mode}"
+        bert_ckpt = f"prajjwal1/bert-small"
         self.text_encoder = BertModel.from_pretrained(bert_ckpt)
         
         self.spe_encoder = SPTEncoder(in_chans=encoder_in_chans,num_classes=encoder_num_classes, embed_dim=speech_embed_dim,
@@ -304,7 +304,7 @@ class UDeepSC_M2(nn.Module):
         else:
             noise_std = torch.FloatTensor([1]) * 10**(-test_snr/20) 
         if text is not None:
-            x_text = self.text_encoder(ta_perform, text, return_dict=False)[0]
+            x_text = self.text_encoder(text, return_dict=False)[0]
             # x_text = self.LN(x_text)
             if ta_perform.startswith('textc'):
                 x_text = x_text[:,0,:].unsqueeze(1)
