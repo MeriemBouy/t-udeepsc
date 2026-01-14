@@ -18,7 +18,7 @@ sst = {
     'dev':   pytreebank.import_tree_corpus(os.path.join(base_path, 'dev.txt')),
     'test':  pytreebank.import_tree_corpus(os.path.join(base_path, 'test.txt'))
 }
-# ---------------------------------------
+
 def rpad(array, n=70):
     """Right padding."""
     current_len = len(array)
