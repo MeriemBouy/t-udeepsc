@@ -48,7 +48,7 @@ def main(args):
     ############## Get the data and dataloader
     
     # ta_sel = ['textr','textc']
-    ta_sel = ['msa', 'textr']
+    ta_sel = [args.ta_perform]
     # ta_sel = ['imgr']
     trainset_group = build_dataset_train(is_train=True, ta_sel=ta_sel, args=args)
     trainloader_group= build_dataloader(ta_sel,trainset_group, args=args)
