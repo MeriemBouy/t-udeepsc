@@ -123,7 +123,7 @@ def build_dataset_test(is_train, args):
 def build_dataset_train(is_train, ta_sel, args):
 
     # my modification:  Force SST data for textc task
-    if 'textc' in ta_sel == 'textc':
+    if 'textc' in ta_sel or ta_sel == 'textc':
         from data import SST_CR
         dataset = SST_CR(root=False, train=is_train, binary=True, if_class=True)
         return {'textc': dataset}
