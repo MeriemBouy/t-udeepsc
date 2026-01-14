@@ -8,9 +8,17 @@ import torch.utils.data as data
 from loguru import logger
 from torch.utils.data import Dataset
 from pytorch_transformers import BertTokenizer
-#####################################################
 
-sst = pytreebank.load_sst()
+# changing the base path (UDeepSC/sst_data/)
+import os
+base_path = './sst_data/trees'
+print(f'Loading SST data locally from: {base_path}')
+sst = {
+    'train': pytreebank.import_tree_corpus(os.path.join(base_path, 'train.txt')),
+    'dev':   pytreebank.import_tree_corpus(os.path.join(base_path, 'dev.txt')),
+    'test':  pytreebank.import_tree_corpus(os.path.join(base_path, 'test.txt'))
+}
+# ---------------------------------------
 def rpad(array, n=70):
     """Right padding."""
     current_len = len(array)
