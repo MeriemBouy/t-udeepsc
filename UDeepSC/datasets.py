@@ -7,7 +7,7 @@ import torch.utils.data as data
 
 
 from transformers import BertTokenizer
-from data import CIFAR_CR,SST_CR
+from data import CIFAR_CR,SST_CR, SHD_CR
 from timm.data import create_transform
 from vqa_utils import VQA2, Config_VQA
 from torch.nn.utils.rnn import pad_sequence
@@ -101,8 +101,9 @@ def build_dataset_test(is_train, args):
         dataset = CIFAR_CR(args.data_path, train=is_train, transform=transform, 
                                         download=True, if_class=False)
     elif args.ta_perform.startswith('textc'):
-        dataset = SST_CR(root=False, train=is_train, binary=True, if_class=True)
-
+        # dataset = SST_CR(root=False, train=is_train, binary=True, if_class=True)
+        dataset = SHD_CR("./data/smart_home/mixed_smart_home_dataset.csv", train=is_train)
+        
     elif args.ta_perform.startswith('textr'):
         dataset = SST_CR(root=True, train=is_train, binary=True, if_class=False)
 
@@ -124,8 +125,8 @@ def build_dataset_train(is_train, ta_sel, args):
 
     # my modification:  Force SST data for textc task
     if 'textc' in ta_sel or ta_sel == 'textc':
-        from data import SST_CR
-        dataset = SST_CR(root=False, train=is_train, binary=True, if_class=True)
+        # dataset = SST_CR(root=False, train=is_train, binary=True, if_class=True)
+        dataset = SHD_CR("./data/smart_home/mixed_smart_home_dataset.csv", train=is_train)
         return {'textc': dataset}
 
     # if args.ta_perform.startswith('img'):
@@ -154,7 +155,8 @@ def build_dataset_train(is_train, ta_sel, args):
             dataset = CIFAR_CR(args.data_path, train=is_train, transform=transform, 
                                             download=True, if_class=False)
         elif ta.startswith('textc'):
-            dataset = SST_CR(root=False, train=is_train, binary=True, if_class=True)
+            # dataset = SST_CR(root=False, train=is_train, binary=True, if_class=True)
+            dataset = SHD_CR("./data/smart_home/mixed_smart_home_dataset.csv", train=is_train)
 
         elif ta.startswith('textr'):
             dataset = SST_CR(root=True, train=is_train, binary=True, if_class=False)
