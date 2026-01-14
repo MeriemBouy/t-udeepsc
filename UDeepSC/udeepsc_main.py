@@ -51,6 +51,18 @@ def main(args):
     ta_sel = [args.ta_perform]
     # ta_sel = ['imgr']
     trainset_group = build_dataset_train(is_train=True, ta_sel=ta_sel, args=args)
+
+    # In case of textc task we have two datasets, one with 2 classes, and one with 141 
+    if args.ta_perform.startswith('textc'):
+        real_num_classes = trainset_group['textc'].num_classes
+        current_out_features = model_without_ddp.head['textc'].out_features
+        if real_num_classes != current_out_features:
+            print(f"\nResizing model head from {current_out_features} to {real_num_classes} classes.")
+            in_features = model_without_ddp.head['textc'].in_features
+            model_without_ddp.head['textc'] = torch.nn.Linear(in_features, real_num_classes)
+            model_without_ddp.head['textc'].to(device)
+            print("Model is ready for Smart Home training.\n")
+    
     trainloader_group= build_dataloader(ta_sel,trainset_group, args=args)
 
     ############################################## Get the test dataloader
