@@ -102,7 +102,7 @@ def build_dataset_test(is_train, args):
                                         download=True, if_class=False)
     elif args.ta_perform.startswith('textc'):
         # dataset = SST_CR(root=False, train=is_train, binary=True, if_class=True)
-        dataset = SHD_CR("./data/smart_home/mixed_smart_home_dataset.csv", train=is_train)
+        dataset = SHD_CR("./data/smart_home/mixed_smart_home_dataset_final.csv", train=is_train)
         
     elif args.ta_perform.startswith('textr'):
         dataset = SST_CR(root=True, train=is_train, binary=True, if_class=False)
@@ -126,7 +126,7 @@ def build_dataset_train(is_train, ta_sel, args):
     # my modification:  Force SST data for textc task
     if 'textc' in ta_sel or ta_sel == 'textc':
         # dataset = SST_CR(root=False, train=is_train, binary=True, if_class=True)
-        dataset = SHD_CR("./data/smart_home/mixed_smart_home_dataset.csv", train=is_train)
+        dataset = SHD_CR("./data/smart_home/mixed_smart_home_dataset_final.csv", train=is_train)
         return {'textc': dataset}
 
     # if args.ta_perform.startswith('img'):
@@ -156,7 +156,7 @@ def build_dataset_train(is_train, ta_sel, args):
                                             download=True, if_class=False)
         elif ta.startswith('textc'):
             # dataset = SST_CR(root=False, train=is_train, binary=True, if_class=True)
-            dataset = SHD_CR("./data/smart_home/mixed_smart_home_dataset.csv", train=is_train)
+            dataset = SHD_CR("./data/smart_home/mixed_smart_home_dataset_final.csv", train=is_train)
 
         elif ta.startswith('textr'):
             dataset = SST_CR(root=True, train=is_train, binary=True, if_class=False)
