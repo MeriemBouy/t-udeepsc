@@ -1,0 +1,5 @@
+__pycache__/
+*.ipynb_checkpoints
+UDeepSC/ckpt_record
+*/__pycache__
+*/*/__pycache__

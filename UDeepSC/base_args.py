@@ -2,7 +2,7 @@ import argparse
 
 IMGC_NUMCLASS = 10   # CIFAR Data
 IMGR_LENGTH = 48   # CIFAR Data patch4/48   patch2/12
-TEXTC_NUMCLASS = 2   # SST Data
+TEXTC_NUMCLASS = 8   # ADS Data
 TEXTR_NUMCLASS = 34000  # Size of vacab
 VQA_NUMCLASS = 3129  # number of VQA class
 MSA_NUMCLASS = 1     # number of MSA class
