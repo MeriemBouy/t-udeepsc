@@ -3,3 +3,6 @@ __pycache__/
 UDeepSC/ckpt_record
 */__pycache__
 */*/__pycache__
+*.ipynb
+data/*.txt
+data/ADS_CR.py
