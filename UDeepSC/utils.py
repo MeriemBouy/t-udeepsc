@@ -85,7 +85,7 @@ def get_model(args):
     return model
 
 def load_checkpoint(model,args):
-    checkpoint = torch.load(args.resume, map_location='cpu')
+    checkpoint = torch.load(args.resume, map_location='cpu', weights_only=False)
 
     print("Load ckpt from the place")
     checkpoint_model = None

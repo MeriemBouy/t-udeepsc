@@ -68,10 +68,10 @@ def build_dataloader(ta_sel, trainsets, args):
         trainset = trainsets[ta]
         Collate_fn = collate_fn if ta.startswith('msa') else None 
         trainloader = torch.utils.data.DataLoader(dataset=trainset,
-                                                sampler=BatchSchedulerSampler(dataset=trainset,batch_size=args.batch_size,
-                                                number_samp=10000*len(ta_sel)),
-                                                num_workers=args.num_workers, pin_memory=True,
-                                                batch_size=args.batch_size, shuffle=False,collate_fn=Collate_fn)
+                                            sampler=BatchSchedulerSampler(dataset=trainset, batch_size=args.batch_size,
+                                            number_samp=args.num_samples*len(ta_sel)),
+                                            num_workers=args.num_workers, pin_memory=True,
+                                            batch_size=args.batch_size, shuffle=False, collate_fn=Collate_fn)
         trainloaders[ta] = trainloader
     return trainloaders
 

@@ -56,6 +56,7 @@ def main(args):
     ############################################## Get the test dataloader
     valset = None
     if args.ta_perform:
+        print("Building the validation set and dataloader for evaluation...") 
         valset = build_dataset_test(is_train=False, args=args)
         sampler_val = torch.utils.data.SequentialSampler(valset)
     else:
@@ -122,7 +123,6 @@ def main(args):
         exit(0)
 
     ################################## Start Training the T-DeepSC
-    print(f"Start training for {args.epochs} epochs")
     max_accuracy = 0.0
     start_time = time.time()
     for epoch in range(args.start_epoch, args.epochs):

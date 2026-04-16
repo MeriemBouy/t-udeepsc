@@ -11,7 +11,7 @@ class ADS_CR(Dataset):
         """
         # 'root' parameter
         base_dir = './data/' if root is False else root
-        file_path = os.path.join(base_dir, 'autonomous_driving_semantic_dataset.txt')
+        file_path = os.path.join(base_dir, 'ADS_dataset.txt')
         
         # 'if_class' parameter
         self.if_class = if_class

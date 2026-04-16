@@ -3,7 +3,7 @@ import math
 import nltk
 import torch.nn as nn
 import sys
-
+from base_args import get_args
 from utils import *
 from tqdm import tqdm
 from timm.data import Mixup
@@ -13,6 +13,7 @@ from vqa_utils import VQA_Tool, VQA_Eval
 from timm.utils import accuracy, AverageMeter
 from nltk.translate.bleu_score import sentence_bleu
 
+args = get_args()
 def get_loss_scale_for_deepspeed(model):
     optimizer = model.optimizer
     return optimizer.loss_scale if hasattr(optimizer, "loss_scale") else optimizer.cur_scale
@@ -215,7 +216,7 @@ def train_epoch_uni(model: torch.nn.Module, criterion: dict,
         model.micro_steps = 0
     else:
         optimizer.zero_grad()
-    num_samples = 5000
+    num_samples = args.num_samples
     data_iter_step = 0
     num_tasks = len(data_dict)
     data_tuple = [data_loader for data_loader in data_dict.values()]
