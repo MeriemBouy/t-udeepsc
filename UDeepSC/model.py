@@ -146,7 +146,6 @@ class UDeepSC_M1(nn.Module):
             x_img = power_norm_batchwise(x_img)
             x_img = self.channel.AWGN(x_img, noise_std.item())
             x_img = self.img_channel_to_decoder(x_img)
-            
         
         if speech is not None:
             x_spe = self.spe_encoder(speech, ta_perform)
@@ -180,8 +179,6 @@ class UDeepSC_M1(nn.Module):
             if ta_perform.startswith('vqa'):
                 x = self.sigmoid_layer(x)
             return x
-
-
 
 
 class UDeepSC_M2(nn.Module):
